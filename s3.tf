@@ -2,7 +2,7 @@ resource "aws_s3_bucket" "portfolio_site" {
     bucket = "truittjanney-website-origin"
 
     tags = {
-        Name = "Truitt Portfolio Site"
+        Name = "Truitt's Website"
         Environment = "production"
     }
 }
