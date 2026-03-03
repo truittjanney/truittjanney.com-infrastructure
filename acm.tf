@@ -19,6 +19,8 @@ resource "aws_acm_certificate" "portfolio_cert" {
 }
 
 resource "aws_route53_record" "cert_validation" {
+  allow_overwrite = true
+
   for_each = {
     for dvo in aws_acm_certificate.portfolio_cert.domain_validation_options : dvo.domain_name => {
       name = dvo.resource_record_name

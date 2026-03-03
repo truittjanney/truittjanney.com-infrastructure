@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "portfolio_site" {
-    bucket = "truittjanney-terraform-site"
+    bucket = "truittjanney-website-origin"
 
     tags = {
         Name = "Truitt Portfolio Site"
