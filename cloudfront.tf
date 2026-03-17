@@ -33,6 +33,7 @@ resource "aws_cloudfront_distribution" "portfolio" {
   default_cache_behavior {
     target_origin_id = "s3-portfolio-origin"
     viewer_protocol_policy = "redirect-to-https"
+    compress = true
 
     allowed_methods = ["GET", "HEAD"]
     cached_methods  = ["GET", "HEAD"]
