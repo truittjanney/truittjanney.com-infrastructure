@@ -1,5 +1,5 @@
 ############################################
-# Origin Access Control (modern replacement for OAI)
+# Origin Access Control
 ############################################
 
 resource "aws_cloudfront_origin_access_control" "portfolio_oac" {
@@ -14,7 +14,7 @@ resource "aws_cloudfront_origin_access_control" "portfolio_oac" {
 # CloudFront Distribution
 ############################################
 
-resource "aws_cloudfront_distribution" "portfolio" {
+resource "aws_cloudfront_distribution" "prod" {
 
   enabled = true
   default_root_object = "index.html"
@@ -25,7 +25,7 @@ resource "aws_cloudfront_distribution" "portfolio" {
   ]
 
   origin {
-    domain_name = aws_s3_bucket.portfolio_site.bucket_regional_domain_name
+    domain_name = aws_s3_bucket.prod.bucket_regional_domain_name
     origin_id = "s3-portfolio-origin"
     origin_access_control_id = aws_cloudfront_origin_access_control.portfolio_oac.id
   }
@@ -72,7 +72,7 @@ resource "aws_cloudfront_distribution" "portfolio" {
 ############################################
 
 resource "aws_s3_bucket_policy" "portfolio_policy" {
-  bucket = aws_s3_bucket.portfolio_site.id
+  bucket = aws_s3_bucket.prod.id
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -83,10 +83,10 @@ resource "aws_s3_bucket_policy" "portfolio_policy" {
           Service = "cloudfront.amazonaws.com"
         }
         Action = "s3:GetObject"
-        Resource = "${aws_s3_bucket.portfolio_site.arn}/*"
+        Resource = "${aws_s3_bucket.prod.arn}/*"
         Condition = {
           StringEquals = {
-            "AWS:SourceArn" = aws_cloudfront_distribution.portfolio.arn
+            "AWS:SourceArn" = aws_cloudfront_distribution.prod.arn
           }
         }
       }

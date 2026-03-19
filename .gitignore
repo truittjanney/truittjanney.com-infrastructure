@@ -1,7 +1,7 @@
 # Terraform
 .terraform/
 *.tfstate
-*.tfstate.*
+*.tfstate.backup
 crash.log
 
 # Sensitive variable files
