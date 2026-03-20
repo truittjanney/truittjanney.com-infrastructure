@@ -6,7 +6,7 @@ data "aws_route53_zone" "primary" {
 resource "aws_acm_certificate" "portfolio_cert" {
   provider = aws.us_east_1
   domain_name = "truittjanney.com"
-  subject_alternative_names = ["www.truittjanney.com"]
+  subject_alternative_names = ["www.truittjanney.com", "*.truittjanney.com"]
   validation_method = "DNS"
 
   lifecycle {
