@@ -34,4 +34,10 @@ viewer_certificate {
       restriction_type = "none"
     }
   }
+
+  tags = {
+    Name = "Truitt Dev CDN"
+    Environment = "development"
+  }
+
 }

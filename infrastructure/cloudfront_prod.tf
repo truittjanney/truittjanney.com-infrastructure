@@ -82,13 +82,8 @@ resource "aws_s3_bucket_policy" "portfolio_policy" {
         Principal = {
           Service = "cloudfront.amazonaws.com"
         }
-        Action = "s3:GetObject"
+        Action   = "s3:GetObject"
         Resource = "${aws_s3_bucket.prod.arn}/*"
-        Condition = {
-          StringEquals = {
-            "AWS:SourceArn" = aws_cloudfront_distribution.prod.arn
-          }
-        }
       }
     ]
   })
