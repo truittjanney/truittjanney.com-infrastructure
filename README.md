@@ -10,6 +10,7 @@ This project provisions a fully serverless, production-ready static website arch
 * Amazon CloudFront (CDN)
 * Route 53 (DNS management)
 * AWS Certificate Manager (TLS/SSL)
+* Amazon DynamoDB (for Terraform state locking)
 * IAM (GitHub Actions deployment role via OIDC)
 
 ## Environments
@@ -92,22 +93,24 @@ terraform apply
 ```
 infrastructure/
 - acm.tf
+- backend.tf
 - cloudfront_dev.tf
 - cloudfront_prod.tf
 - iam.tf
 - providers.tf
 - route53.tf
 - s3.tf
+- state.tf
 ```
 
 ## Notes
 
-* `.tfstate` files are not committed (managed locally or remotely)
+* `.tfstate` files are not committed (managed remotely in S3)
+* Remote Terraform state backend: S3 bucket `truittjanney-terraform-state` + DynamoDB lock table `truittjanney-terraform-state-lock`
 * `.terraform.lock.hcl` is committed for provider version consistency
 
 ## Future Improvements
 
-* Remote Terraform state (S3 + DynamoDB)
 * CI/CD pipeline enhancements
 * Monitoring and logging (CloudWatch)
 
