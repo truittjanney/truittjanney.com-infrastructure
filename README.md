@@ -10,8 +10,9 @@ This project provisions a fully serverless, production-ready static website arch
 * Amazon CloudFront (CDN)
 * Route 53 (DNS management)
 * AWS Certificate Manager (TLS/SSL)
-* Amazon DynamoDB (for Terraform state locking)
 * IAM (GitHub Actions deployment role via OIDC)
+
+Terraform remote state is stored in Amazon S3 with state locking enabled via S3 lockfiles.
 
 ## Environments
 
@@ -100,18 +101,18 @@ infrastructure/
 - providers.tf
 - route53.tf
 - s3.tf
-- state.tf
 ```
 
 ## Notes
 
 * `.tfstate` files are not committed (managed remotely in S3)
-* Remote Terraform state backend: S3 bucket `truittjanney-terraform-state` + DynamoDB lock table `truittjanney-terraform-state-lock`
+* Remote Terraform state is stored in S3 bucket `truittjanney-terraform-state`
+* State locking is handled using S3 lockfiles (`use_lockfile = true`)
+* The backend S3 bucket is pre-provisioned and not managed in this repository
 * `.terraform.lock.hcl` is committed for provider version consistency
 
 ## Future Improvements
 
-* CI/CD pipeline enhancements
 * Monitoring and logging (CloudWatch)
 
 ---
