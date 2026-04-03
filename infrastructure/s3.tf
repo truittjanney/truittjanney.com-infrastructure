@@ -51,3 +51,29 @@ resource "aws_s3_bucket_policy" "dev_policy" {
     ]
   })
 }
+
+resource "aws_s3_bucket" "cloudfront_logs" {
+  bucket = "truittjanney-cloudfront-logs"
+
+  tags = {
+    Name = "CloudFront Logs"
+    Environment = "shared"
+  }
+}
+
+resource "aws_s3_bucket_ownership_controls" "logs" {
+  bucket = aws_s3_bucket.cloudfront_logs.id
+
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "logs" {
+  bucket = aws_s3_bucket.cloudfront_logs.id
+
+  block_public_acls = true
+  block_public_policy = true
+  ignore_public_acls = false
+  restrict_public_buckets = true
+}

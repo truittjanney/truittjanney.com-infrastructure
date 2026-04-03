@@ -65,6 +65,13 @@ resource "aws_cloudfront_distribution" "prod" {
     Name = "Truitt Portfolio CDN"
     Environment = "production"
   }
+
+  logging_config {
+  bucket = aws_s3_bucket.cloudfront_logs.bucket_domain_name
+  include_cookies = false
+  prefix = "prod/"
+}
+
 }
 
 ############################################

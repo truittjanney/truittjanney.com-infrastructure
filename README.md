@@ -48,6 +48,15 @@ Each environment has its own:
 
 Used to store static website assets.
 
+### Terraform State Backend
+
+* S3 bucket: `truittjanney-terraform-state`
+* Versioning enabled
+* Server-side encryption enabled (AES256)
+* Protected with `prevent_destroy` lifecycle rule
+
+Used to store Terraform state securely and reliably.
+
 ### CloudFront Distributions
 
 * One per environment
@@ -97,10 +106,12 @@ infrastructure/
 - backend.tf
 - cloudfront_dev.tf
 - cloudfront_prod.tf
+- cloudwatch.tf
 - iam.tf
 - providers.tf
 - route53.tf
 - s3.tf
+- state.tf
 ```
 
 ## Notes
@@ -108,12 +119,7 @@ infrastructure/
 * `.tfstate` files are not committed (managed remotely in S3)
 * Remote Terraform state is stored in S3 bucket `truittjanney-terraform-state`
 * State locking is handled using S3 lockfiles (`use_lockfile = true`)
-* The backend S3 bucket is pre-provisioned and not managed in this repository
 * `.terraform.lock.hcl` is committed for provider version consistency
-
-## Future Improvements
-
-* Monitoring and logging (CloudWatch)
 
 ---
 
