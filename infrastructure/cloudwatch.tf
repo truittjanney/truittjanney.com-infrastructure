@@ -18,6 +18,8 @@ resource "aws_cloudwatch_metric_alarm" "prod_5xx" {
   }
 
   alarm_description = "High 5xx error rate on production CloudFront"
+  alarm_actions = [aws_sns_topic.cloudwatch_alerts.arn]
+  ok_actions    = [aws_sns_topic.cloudwatch_alerts.arn]
 }
 
 ############################################
@@ -40,6 +42,8 @@ resource "aws_cloudwatch_metric_alarm" "prod_4xx" {
   }
 
   alarm_description = "High 4xx error rate on production CloudFront"
+  alarm_actions = [aws_sns_topic.cloudwatch_alerts.arn]
+  ok_actions    = [aws_sns_topic.cloudwatch_alerts.arn]
 }
 
 ############################################
@@ -62,6 +66,8 @@ resource "aws_cloudwatch_metric_alarm" "dev_5xx" {
   }
 
   alarm_description = "High 5xx error rate on dev CloudFront"
+  alarm_actions = [aws_sns_topic.cloudwatch_alerts.arn]
+  ok_actions    = [aws_sns_topic.cloudwatch_alerts.arn]
 }
 
 ############################################
@@ -84,4 +90,6 @@ resource "aws_cloudwatch_metric_alarm" "dev_4xx" {
   }
 
   alarm_description = "High 4xx error rate on dev CloudFront"
+  alarm_actions = [aws_sns_topic.cloudwatch_alerts.arn]
+  ok_actions    = [aws_sns_topic.cloudwatch_alerts.arn]
 }
