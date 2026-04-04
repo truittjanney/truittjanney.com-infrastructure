@@ -81,7 +81,7 @@ Used to store Terraform state securely and reliably.
 
   * S3 uploads
   * CloudFront cache invalidation
-* Uses OIDC (no static credentials)
+  * Uses OIDC (no static credentials)
 
 ## Deployment
 
@@ -111,6 +111,7 @@ infrastructure/
 - providers.tf
 - route53.tf
 - s3.tf
+- sns.tf
 - state.tf
 ```
 
