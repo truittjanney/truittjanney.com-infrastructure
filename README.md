@@ -98,6 +98,22 @@ terraform apply
 * Automatically deploys on push
 * Uses OIDC to assume AWS role securely
 
+## Architecture Diagram
+
+![Architecture](docs/architecture/architecture_diagram.png)
+
+## Monitoring & Infrastructure Overview
+
+The following images show the deployed infrastructure and monitoring setup in AWS.
+
+### CloudFront Distributions
+
+![CloudFront Distributions](docs/screenshots/cloudfront_distributions.png)
+
+### CloudWatch Alarms
+
+![CloudWatch Alarms](docs/screenshots/cloudwatch_alarms.png)
+
 ## Project Structure
 
 ```
