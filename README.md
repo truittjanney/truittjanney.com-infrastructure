@@ -8,11 +8,11 @@ Watch the full project walkthrough: https://youtu.be/VfKgAgI_g6I
 
 This project provisions a fully serverless, production-ready static website architecture using:
 
-* Amazon S3 (static site hosting)
-* Amazon CloudFront (CDN)
-* Route 53 (DNS management)
-* AWS Certificate Manager (TLS/SSL)
-* IAM (GitHub Actions deployment role via OIDC)
+- Amazon S3 (static site hosting)
+- Amazon CloudFront (CDN)
+- Route 53 (DNS management)
+- AWS Certificate Manager (TLS/SSL)
+- IAM (GitHub Actions deployment role via OIDC)
 
 Terraform remote state is stored in Amazon S3 with state locking enabled via S3 lockfiles.
 
@@ -20,70 +20,68 @@ Terraform remote state is stored in Amazon S3 with state locking enabled via S3 
 
 The infrastructure supports two environments:
 
-* **Production**
+- **Production**
+  - `truittjanney.com`
+  - `www.truittjanney.com`
 
-  * `truittjanney.com`
-  * `www.truittjanney.com`
-
-* **Development**
-
-  * `dev.truittjanney.com`
+- **Development**
+  - `dev.truittjanney.com`
 
 Each environment has its own:
 
-* S3 bucket
-* CloudFront distribution
-* DNS record
+- S3 bucket
+- CloudFront distribution
+- DNS record
 
 ## Authentication
 
-* Local development uses **AWS SSO (IAM Identity Center)**
-* CI/CD uses **OIDC with GitHub Actions**
-* No long-lived AWS access keys are stored or used
+- Local development uses **AWS SSO (IAM Identity Center)**
+- CI/CD uses **OIDC with GitHub Actions**
+- No long-lived AWS access keys are stored or used
 
 ## Infrastructure Components
 
 ### S3 Buckets
 
-* `truittjanney-website-prod`
-* `truittjanney-website-dev`
+- `truittjanney-website-prod`
+- `truittjanney-website-dev`
 
 Used to store static website assets.
 
 ### Terraform State Backend
 
-* S3 bucket: `truittjanney-terraform-state`
-* Versioning enabled
-* Server-side encryption enabled (AES256)
-* Protected with `prevent_destroy` lifecycle rule
+- S3 bucket: `truittjanney-terraform-state`
+- Versioning enabled
+- Server-side encryption enabled (AES256)
+- Protected with `prevent_destroy` lifecycle rule
 
 Used to store Terraform state securely and reliably.
 
 ### CloudFront Distributions
 
-* One per environment
-* Configured with Origin Access Control (OAC)
-* HTTPS enforced
+- One per environment
+- Configured with Origin Access Control (OAC)
+- HTTPS enforced
 
 ### Route 53
 
-* Alias A records pointing to CloudFront distributions
-* DNS validation for TLS/SSL certificates
+- Alias A records pointing to CloudFront distributions
+- DNS validation for TLS/SSL certificates
 
 ### ACM (Certificate Manager)
 
-* TLS certificate for:
-
-  * `truittjanney.com`
-  * `www.truittjanney.com`
+- TLS certificate for:
+  - `truittjanney.com`
+  - `www.truittjanney.com`
 
 ### IAM Role (GitHub Actions)
 
-* Allows:
+- Allows:
+  - S3 uploads
+  - CloudFront cache invalidation
 
-  * S3 uploads
-  * CloudFront cache invalidation
-  * Uses OIDC (no static credentials)
+- Assumed securely through GitHub Actions using OIDC
+- No long-lived AWS credentials are stored
 
 ## Deployment
 
@@ -97,8 +95,8 @@ terraform apply
 
 ### GitHub Actions
 
-* Automatically deploys on push
-* Uses OIDC to assume AWS role securely
+- Automatically deploys on push
+- Uses OIDC to assume AWS role securely
 
 ## Architecture Diagram
 
@@ -135,10 +133,10 @@ infrastructure/
 
 ## Notes
 
-* `.tfstate` files are not committed (managed remotely in S3)
-* Remote Terraform state is stored in S3 bucket `truittjanney-terraform-state`
-* State locking is handled using S3 lockfiles (`use_lockfile = true`)
-* `.terraform.lock.hcl` is committed for provider version consistency
+- `.tfstate` files are not committed (managed remotely in S3)
+- Remote Terraform state is stored in S3 bucket `truittjanney-terraform-state`
+- State locking is handled using S3 lockfiles (`use_lockfile = true`)
+- `.terraform.lock.hcl` is committed for provider version consistency
 
 ---
 
