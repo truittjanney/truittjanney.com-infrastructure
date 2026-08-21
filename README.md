@@ -2,7 +2,7 @@
 
 This repository contains the infrastructure code for deploying and managing **truittjanney.com** using Terraform on AWS.
 
-Watch the full project walkthrough: https://youtu.be/VfKgAgI_g6I
+[Watch the truittjanney.com infrastructure project demo on YouTube](https://youtu.be/VfKgAgI_g6I)
 
 ## Overview
 
